@@ -1,0 +1,337 @@
+   <ul>
+      <!-- <li v-for="val in list">{{val}}</li> -->
+      <!-- <li v-for="val,index in list">{{index}}:{{val}}</li> -->
+      <li v-for="val,key in list">{{key}}:{{val}}</li>
+    </ul>
+  </div>
+<script src="vue.js" charset="utf-8"></script>
+<script type="text/javascript">
+  /*
+    不管是数组还是对象都是通过in来遍历（v-for）
+    v-for：
+      如果是数组 val in data
+        这个val 数组中的每项
+        如果要找下标
+      val,index in data
+      
+    如果是对象:
+      val,key in data
+      
+      
+      
+  */
+  var dataArr = {
+    name:'张杰',
+    age:18,
+    sex:'妹纸'
+  }//[1,2,3];
+  
+  new Vue({
+    el:'.red',
+    data:{
+      list:dataArr
+    }
+  });
+    /*
+    v-if是当某个条件成立的情况下插入某个（些）元素，是直接操作DOM
+    性能相对来说不是太好（show）
+   */
+  new Vue({
+    el:'#app',
+    data:{
+      list:[
+        {c:'1',status:false},
+        {c:'2',status:true},
+        {c:'3',status:false},
+        {c:'4',status:true},
+        {c:'5',status:false}
+      ]
+    },
+    methods:{
+      click(val){
+        val.status = !val.status;
+        // console.log(val)
+      }
+    }
+  });<script src="vue.js" charset="utf-8"></script>
+<script type="text/javascript">
+  /*
+    可以有修饰符:
+    .number - 输入字符串转为数字
+    .trim - 输入首尾空格过滤
+    还可以连写
+    .number.trim
+    number需要注意：
+      如果开头为数字，后面为非数字，那么值只为数字
+      如果开头不是数字，中间有数字，那么值为非数字+数字的字符串
+  */
+  var v = new Vue({
+    el:'.red',
+    data:{
+      val:'123',
+      picked:''
+    }
+  });
+//  console.log( v.$data.list )
+   /*
+    当使用select框的时候，定义一个初始值选择的就是初始值这个
+    option，当切换option的时候，状态随着内容所改变。
+    数据本身也进行了改变
+  */ /*
+    v-bind:class="[{}]"
+    v-bind:style="[{}]"
+    
+    如果使用数组，那么class值要为数据中的值{
+      class="red"
+      v-bind:class="[redA]"
+      data : {
+        redA:'red'
+      }
+    }
+    
+    如果使用对象，那么class值是{red(className):boolean}
+    如果boolean为true:添加这个className，false,不添加这个className
+      /*
+    v-bind:style="{background:red}"
+    v-bind:style="redA"
+    data{
+      redA:{background:red}
+    }
+    
+    v-bind:style="[{}]"
+    
+    缩写:
+      :
+    
+    注意：
+      如果使用数组的方式添加样式，那么数组中必须要为对象，
+      直接写样式是不认的
+      /*
+    添加事件：
+      v-on:click="事件绑定函数"
+      缩写：@click="事件绑定函数"
+    
+    事件函数一般都写在  methods中，methods是实例化对象上的一个属性
+    ***this，指向实例化对象.
+    methods:{
+      fn1(){}
+      fn2(){}
+    }
+    
+  */
+  var v = new Vue({
+    el:'#red',
+    data:{
+      v:false
+    },
+    methods:{
+      // fn(ev){//在不传参的时候，ev就为事件对象
+      //   //this
+      //   const div = document.getElementById('div1');
+      //   div.style.background = 'red';
+      //   console.log(ev);
+      // }
+      //如果事件绑定函数中第一个参数传入了别的值（不是event）
+      //那么需要手动添加第二个参数为$event,它就是事件对象
+      fn(ev,$event){
+        console.log(ev,$event);
+      }
+    }
+ /*
+    stop:阻止冒泡
+    prevent：阻止默认行为
+    self:只在触发事件元素身上才会调用
+    once：事件只触发一次
+    left - (2.2.0) 只当点击鼠标左键时触发。
+    right - (2.2.0) 只当点击鼠标右键时触发。
+    middle - (2.2.0) 只当点击鼠标中键时触发。
+  */  /*
+    当某个数据发生变化时需要处理的行为，就可以使用computed
+    computed中的这个属性，是依赖于某个数据的，当数据发生变化
+    才会更改这个属性的值。
+    
+    
+    computed与methods区别:
+      computed只有在某个数据发生变化的时候才会执行（第一次是会执行的）
+      methods只要函数调用不管你数据发不发生变化都会执行
+    <script type="text/javascript">
+  /*
+    当某个数据发生变化时需要处理的行为，就可以使用computed
+    computed中的这个属性，是依赖于某个数据的，当数据发生变化
+    才会更改这个属性的值。
+    
+    
+    computed与methods区别:
+      computed只有在某个数据发生变化的时候才会执行（第一次是会执行的）
+      methods只要函数调用不管你数据发不发生变化都会执行
+      
+    computed:{
+      fn(){
+        
+      }
+    }
+    computed里面的函数 fn 可以拆分成
+    get(){
+      当依赖数据发生变化的时候会触发get
+    },
+    set(){
+      当这个计算属性发生变化的时候会触发set
+    }
+    一般来说既要通过数据的变化来操作数据时也要
+    通过改变
+     /*
+    v-if是当某个条件成立的情况下插入某个（些）元素，是直接操作DOM
+    性能相对来说不是太好（show）
+    
+    如果频繁操作DOM的显示或者隐藏，那么建议用show
+    如果通过某个判断渲染次数较少，可以用v-if
+    
+    如果使用if-else,v-for可以不用写，用if的for即可。
+    
+    如果要使用else-if，那么要紧跟if的下面。
+      v-if
+      v-else-if
+    
+   */  /*
+    当组件嵌入根元素中的时候，填写的数据是通过
+    props来进行传递，数组[],每个数据都为字符串以逗号分隔
+    
+    :nnum(子组件props的名字) = "number"(父级的数据)
+    
+  */<script type="text/javascript">
+  /*
+    当组件嵌入根元素中的时候，填写的数据是通过
+    props来进行传递，数组[],每个数据都为字符串以逗号分隔
+    
+  */var temp = `<div>{{num}}::{{number}}</div>`;
+  
+  var data = {
+    num:0
+  }
+  Vue.component('my-hezi', {
+     props:['num','number'],
+     template:temp
+  });
+  
+  
+  //根组件
+  new Vue({
+    el:'#app'
+  });
+    
+  /*
+    注意：
+      在组件中data是个函数，不是一个对象方式显示
+      data:{}  ×
+      data(){} | data:function(){}  √
+      
+      var json = {};
+      data:function(){
+        return {}  √
+        return json ×  不能为变量名
+      }
+      
+  */
+    
+  /*
+    建议使用烤串命名:
+      my-hezi
+      myHezi
+    创建子组件的时候，名字虽然可以使用驼峰命名，但是在添加到
+    父组件的时候，要使用烤串命名
+    
+    ****先声明子组件，再写父组件
+    
+    ****声明子组件的时候，顶层不能有多个标签，如果要使用多个标签
+    ****那么在多个标签中包一个空标签，使得这个组件顶层就一个标签
+      <div>div</div><span>span</span>   ×
+      
+      <div>
+        <div>div</div><span>span</span> √
+      </div>
+    
+    ****不然会报错。
+    
+    建议（小技巧）：
+      如果要使用驼峰，那么用烤串命名，这样添加到父组件的时候不会乱。
+      
+    
+      
+      
+  */
+  
+  // Vue.component('my-hezi', {
+  //    template:'<div><span>我是span</span></div>'
+  // });
+  
+  var temp = `<div><div>div</div><span>我是span</span></div>`;
+  
+  Vue.component('my-hezi', {
+     template:temp
+  });
+  
+  Vue.component('my-box', {
+     template:temp
+  });
+  
+  
+  //根组件
+  new Vue({
+    el:'#app'
+  });
+    /*
+    固定格式的标签使用组件的时候需要先写一个正确的
+    格式，然后在这个格式下写is="组件名"，这个时候
+    就不会出现标签乱套的情况。
+  */
+  
+  let list = [
+    {
+      content:'早餐很辣',
+      checked:false
+    },
+    {
+      content:'早餐很辣2',
+      checked:false
+    }
+  ]
+  var v = new Vue({
+    el:'#app',
+    data:{
+      list:getData(),
+      val:''
+    },
+    //本地存储通过watch的深度监听来监控数据的变化，当数据发生变化的
+    //时候将新的数据放到本地
+    watch:{
+      list:{
+        handler: function (newVal, oldVal) {
+          // console.log(newVal, oldVal);
+          createData(newVal);
+        },
+        deep: true
+      }
+    },
+    methods:{
+      keyup(){
+        this.list.push({
+          content:this.val,
+          checked:false
+        });
+        this.val = '';
+      }
+    }
+  });
+  
+  // v.list = [{content:1,checked:true}]
+  
+  //把数据存到本地
+  function createData(data){
+    localStorage.setItem('list',JSON.stringify(data));
+  }
+  //获取本地数据
+  function getData(){
+    return JSON.parse(localStorage.getItem('list')||'[]');
+  }
+  
+  
