@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+		<style type="text/css">
+			*{
+				margin:0;
+           		padding:0;
+			}
+			body{
+	        	overflow: hidden;
+	        }
+	        #switch{
+	        	height: 50px;
+	        	width: 130px;
+	        	line-height: 50px;
+	        	text-align: center;
+	        	font-size: 35px;
+	        	border: 2px solid skyblue;
+	        	border-radius: 5px;
+	        	position: absolute;
+	        	right: 15px;
+	        	bottom: 15px;
+	        }
+	        #box div{
+	        	display: inline-block;
+	        	overflow: hidden;
+	        	border-right:1px solid deepskyblue;
+	        	/*vertical-align: top;*/
+	        	position: absolute;
+	        }
+	        /*#aaa{
+	        	position: absolute;
+	        	transform: rotate(90deg);
+	        	margin: 0 auto;
+	        	height: 100px;
+	        	width: 100px;
+	        }
+	        #bbb{
+	        	position: absolute;
+	        	transform: rotate(90deg);
+	        }*/
+		</style>
+</head>
+<body>
+	<div id="switch">Switch</div>
+	<!--<div id="aaa">123<div id="bbb">123</div></div>-->
+	<div id="box"></div>
+	<script src="jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		const H = document.documentElement.clientHeight;
+		const W = document.documentElement.clientWidth;
+		const $box = $('#box');
+		function Creat1(){
+			$box.css({"height":(H*0.9)+"px","border":"1px solid #000","width":(H*0.9)+"px","margin":(H/20)+"px auto","border-radius":"5px","position":"relative"});
+			let num = 0.5;
+			var n = 0;
+			var m = 0;
+			for(var i=0;i<12;i++){
+				if(i%4==0){
+					num=num*2;
+					$box.append("<div>↑↑↑↑↑</div>");
+					$box.children().eq(i).css({"height":(H*0.9/num)+"px","width":(H*0.9/(num*2)-1)+"px","transform":"rotate("+i%4*90+"deg)","left":n+"px","top":m+"px"});
+					n += H*0.9/(num*2);
+				}
+				if(i%4==1){
+					$box.append("<div>↑↑↑↑↑</div>");
+					$box.children().eq(i).css({"height":(H*0.9/(num*2))+"px","width":(H*0.9/(num*2)-1)+"px","transform":"rotate("+i%4*90+"deg)","left":n+"px","top":m+"px"});
+					m += H*0.9/(num*2);
+				}
+				if(i%4==2){
+					num=num*2;
+					$box.append("<div>↑↑↑↑↑</div>");
+					$box.children().eq(i).css({"height":(H*0.9/num)+"px","width":(H*0.9/(num*2)-1)+"px","transform":"rotate("+i%4*90+"deg)","left":n+H*0.9/(num*2)+"px","top":m+"px"});
+				}
+				if(i%4==3){
+					$box.append("<div>↑↑↑↑↑</div>");
+					$box.children().eq(i).css({"height":(H*0.9/(num*2))+"px","width":(H*0.9/(num*2)-1)+"px","transform":"rotate("+i%4*90+"deg)","left":n+"px","top":m+H*0.9/(num*2)+"px"});
+				}
+			}
+		}
+		function Active(){
+			$box.children('div').click(function(){console.log($(this).index())})
+		}
+		Creat1();
+		Active();
+	</script>
+</body>
+</html>
