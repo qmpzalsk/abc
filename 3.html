@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.red{
+				border:2px solid red;
+			}
+			.green{
+				border:2px solid green;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" id="user" />
+		<input type="password" name="" id="pass" />
+		<input type="button" value="注册" id="add"/>
+		<input type="button" value="登录" id="login"/>
+		
+	</body>	
+	<script type="text/javascript">
+		var user = document.getElementById('user');
+		var add = document.getElementById('add');
+		var login = document.getElementById('login');
+		var pass = document.getElementById('pass');
+//		user.onblur=function(){
+//			ajax({
+//				url:'localhost:8088/user',
+//				data:{
+//					act:'add',
+//					user:user.value,
+//					pass:123
+//				},
+//				success:function(){
+//					user.className=data.code?red:green;
+//					user.innerHTML=data.msg;
+//				}
+//			})
+//		}
+		login.click=function(){
+			ajax({
+				url:'localhost:8088/user',
+				data:{
+					act:'login',
+					user:user.value,
+					pass:pass.value
+				},
+				dataType:'json',
+				success:function(data){
+					if(data.code){
+						alert(data.msg)
+					}
+				}
+			})
+		}
+	</script>
+</html>
