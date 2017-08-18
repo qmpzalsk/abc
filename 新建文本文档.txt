@@ -1,2 +1,0 @@
-学react  native
-做  地理接口  拍照  支付
