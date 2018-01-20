@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 545px;
+				height: 545px;
+				margin:20px auto;
+				position: relative;
+			}
+			#box div{
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				background: red;
+				color: #fff;
+				text-align: center;
+				line-height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script>
+			var box = document.getElementById('box');
+			var str = '';
+			for(var i=0;i<100;i++){
+				str += `<div style="left:${i%10*55}px;top:${Math.floor(i/10)*55}px;">${i+1}</div>`;
+			}
+			box.innerHTML = str;
+			var divs = box.getElementsByTagName('div');
+			for(var i=0;i<divs.length;i++){
+				divs[i].index = i;
+				divs[i].onclick = function(){
+					for(var i=0;i<divs.length;i++){
+						divs[i].style.background = 'red';
+					}
+					this.style.background = 'blue';
+					fnL(this.index);
+					fnR(this.index);
+					fnT(this.index);
+					fnB(this.index);
+				}
+			}
+			
+			//向右找
+			function fnR(n){
+				divs[n].style.background = 'blue';
+				//向左向右要保证在同一行，所以用(Math.floor((n+1)/10)==Math.floor(n/10))限制在同一行
+				if(divs[n+1]&&(Math.floor((n+1)/10)==Math.floor(n/10))){
+					setTimeout(function(){
+						fnR(n+1);
+					},100)	
+				}
+			}
+			//向左找
+			function fnL(n){
+				divs[n].style.background = 'blue';
+				console.log(n,n-1)
+				if(divs[n-1]&&(Math.floor((n-1)/10)==Math.floor(n/10))){
+					setTimeout(function(){
+						fnL(n-1);
+					},100)
+					
+				}
+			}
+			//向上找
+			function fnT(n){
+				divs[n].style.background = 'blue';
+				//console.log(divs[n].innerHTML)
+				if(divs[n-10]){
+					setTimeout(function(){
+						fnT(n-10);
+					},100)
+				}
+			}
+			//向下找
+			function fnB(n){
+				divs[n].style.background = 'blue';				
+				if(divs[n+10]){
+					setTimeout(function(){
+						fnB(n+10);
+					},100)	
+				}
+			}
+		</script>
+	</body>
+</html>
