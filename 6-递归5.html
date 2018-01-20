@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 545px;
+				height: 545px;
+				margin:20px auto;
+				position: relative;
+				background: #000;
+			}
+			#box div{
+				position: absolute;
+				width: 48px;
+				height: 48px;
+				border: 2px solid transparent;
+				color: #fff;
+				text-align: center;
+				line-height: 50px;
+				border-radius: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script>
+			var box = document.getElementById('box');
+			var str = '';
+			for(var i=0;i<100;i++){
+				str += `<div style="left:${i%10*55}px;top:${Math.floor(i/10)*55}px;background:${color()};">${i+1}</div>`;
+			}
+			box.innerHTML = str;
+			var divs = box.getElementsByTagName('div');
+			for(var i=0;i<divs.length;i++){
+				divs[i].index = i;
+				divs[i].color = divs[i].style.background;
+				divs[i].onclick = function(){
+					
+				}
+			}
+			function color(){
+				var arr = ['red','yellow','blue','orange','green'];
+				return arr[Math.round(Math.random()*(arr.length-1))];
+			}
+		</script>
+	</body>
+</html>
